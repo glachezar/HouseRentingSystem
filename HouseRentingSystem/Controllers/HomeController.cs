@@ -1,24 +1,19 @@
 ﻿namespace HouseRentingSystem.Controllers
 {
-    using HouseRentingSystem.Models;
+    using HouseRentingSystem.Web.ViewModels.Home;
     using Microsoft.AspNetCore.Mvc;
     using System.Diagnostics;
 
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController()
         {
-            _logger = logger;
+            
         }
 
         public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Privacy()
         {
             return View();
         }
