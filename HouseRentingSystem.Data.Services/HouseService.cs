@@ -1,10 +1,12 @@
 ﻿namespace HouseRentingSystem.Data.Services
 {
-    using HouseRentingSystem.Data;
-    using HouseRentingSystem.Data.Services.Interfaces;
-    using HouseRentingSystem.Web.ViewModels.Home;
+    using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+
+    using Data;
+    using Services.Interfaces;
+    using Web.ViewModels.Home;
 
     public class HouseService : IHouseService
     {
@@ -17,7 +19,19 @@
 
         public async Task<IEnumerable<IndexViewModel>> LastThreeHousesAsync()
         {
-            throw new NotImplementedException();
+            IEnumerable<IndexViewModel> lastThreeHouses = await this.dbContext
+                .Houses
+                .OrderByDescending(h => h.CreatedOn)
+                .Take(3)
+                .Select(h => new IndexViewModel()
+                {
+                    Id = h.Id.ToString(),
+                    Title = h.Title,
+                    ImageUrl = h.ImageUrl
+                })
+                .ToArrayAsync();
+
+            return lastThreeHouses;
         }
     }
 }
