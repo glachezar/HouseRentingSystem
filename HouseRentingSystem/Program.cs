@@ -1,11 +1,13 @@
 namespace HouseRentingSystem
 {
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
 
-
+    using Data.Services.Interfaces;
+    using Data.Services;
     using HouseRentingSystem.Data;
     using HouseRentingSystem.Data.Models;
-    using Microsoft.Extensions.Configuration;
+    using HouseRentingSystem.Web.Infrastructure.Extentions;
 
     public class Program
     {
@@ -43,6 +45,8 @@ namespace HouseRentingSystem
 
             })
                .AddEntityFrameworkStores<HouseRentingDbContext>();
+
+            builder.Services.AddApplicationServices(typeof(IHouseService));
 
             builder.Services.AddControllersWithViews();
 
