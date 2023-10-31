@@ -10,6 +10,11 @@
         public void Configure(EntityTypeBuilder<House> builder)
         {
             builder
+                .Property(h => h.CreatedOn)
+                .HasDefaultValueSql("GETDATE()");
+
+
+            builder
                 .HasOne(h => h.Categiry)
                 .WithMany(h => h.Houses)
                 .HasForeignKey(h => h.CategoryId)

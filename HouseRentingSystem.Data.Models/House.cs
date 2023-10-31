@@ -35,7 +35,8 @@
         
         public decimal PricePerMonth { get; set; }
 
-      
+        public DateTime CreatedOn { get; set; }
+
         public int CategoryId { get; set; }
 
         public virtual Category Categiry { get; set; } = null!;
