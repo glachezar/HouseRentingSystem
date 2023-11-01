@@ -6,9 +6,10 @@
     [Authorize]
     public class AgentController : Controller
     {
-        
+        [HttpGet]
         public async Task<IActionResult> Become()
         {
+            string userId = 
             return View();
         }
     }
