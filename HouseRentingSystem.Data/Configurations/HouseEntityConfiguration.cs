@@ -26,12 +26,9 @@
                 .HasForeignKey(h => h.AgentId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            
-            //builder
-            //    .HasOne(h => h.Renter)
-            //    .WithMany(r => r.RentedHouses)
-            //    .HasForeignKey(h => h.RenterId)
-            //    .OnDelete(DeleteBehavior.Restrict);
+            builder
+                .HasData(GenerateHouses());
+
         }
 
 
@@ -71,7 +68,7 @@
                 Title = "Chateau Artisan",
                 Address = "167th Ave, Homestead, Florida",
                 Description = "Incredible Florida Mega Mansion Surrounded by Water",
-                ImageUrl = "https://www.luxury-architecture.net/wp-content/uploads/2022/10/main.jpg",
+                ImageUrl = "https://i.pinimg.com/originals/a6/f5/85/a6f5850a77633c56e4e4ac4f867e3c00.jpg",
                 PricePerMonth = 2000.00M,
                 CategoryId = 3,
                 AgentId = Guid.Parse("54913732-8cbb-42db-898f-94b4cb316e4a"),
