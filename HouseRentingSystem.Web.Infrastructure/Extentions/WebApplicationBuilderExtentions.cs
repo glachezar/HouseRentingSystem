@@ -2,17 +2,15 @@
 {
     using Microsoft.Extensions.DependencyInjection;
 
-    using Data.Services;
-    using Data.Services.Interfaces;
     using System.Reflection;
 
     public static class WebApplicationBuilderExtentions
     {
         /// <summary>
         /// This method registers all services with their interfaces and implementations of given assembly.
-        /// The assambly is taken from the type of random service implementation provided.
+        /// The assambly is taken from the type of random service interface or implementation provided.
         /// </summary>
-        /// <param name="serviceType">Type of random service implementation.</param>
+        /// <param name="serviceType"></param>
         /// <exception cref="InvalidOperationException"></exception>
         public static void AddApplicationServices(this IServiceCollection services, Type serviceType)
         {
