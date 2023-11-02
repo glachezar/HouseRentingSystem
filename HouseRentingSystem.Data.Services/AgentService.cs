@@ -33,7 +33,6 @@
             return agentExist;
         }
 
-
         public async Task<bool> HasRentsByUserIdAsync(string userId)
         {
             ApplicationUser? user = await this.dbContext
@@ -47,6 +46,7 @@
 
             return true;
         }
+
         public async Task CreateAsync(string userId, BecomeAgentFormModel model)
         {
             Agent newAgent = new Agent()
@@ -57,6 +57,20 @@
 
             await this.dbContext.Agents.AddAsync(newAgent);
             await this.dbContext.SaveChangesAsync();
+        }
+
+        public async Task<string?> GetAgentIdByUserIdAsync(string userId)
+        {
+            Agent? agent = await this.dbContext
+                .Agents
+                .FirstOrDefaultAsync(a => a.UserId.ToString() == userId);
+
+            if (agent == null)
+            {
+                return null;
+            }
+
+            return agent.Id.ToString();
         }
     }
 }

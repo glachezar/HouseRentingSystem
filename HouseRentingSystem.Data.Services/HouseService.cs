@@ -1,4 +1,7 @@
-﻿namespace HouseRentingSystem.Data.Services
+﻿using HouseRentingSystem.Data.Models;
+using HouseRentingSystem.Web.ViewModels.House;
+
+namespace HouseRentingSystem.Data.Services
 {
     using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
@@ -32,6 +35,23 @@
                 .ToArrayAsync();
 
             return lastThreeHouses;
+        }
+
+        public async Task CreateAsync(HouseFormModel model, string agentId)
+        {
+            House newHouse = new House
+            {
+                Title = model.Title,
+                Address = model.Address,
+                Description = model.Description,
+                ImageUrl = model.ImageUrl,
+                PricePerMonth = model.PricePerMonth,
+                CategoryId = model.CategoryId,
+                AgentId = Guid.Parse(agentId),
+            };
+
+            await dbContext.Houses.AddAsync(newHouse);
+            await dbContext.SaveChangesAsync();
         }
     }
 }

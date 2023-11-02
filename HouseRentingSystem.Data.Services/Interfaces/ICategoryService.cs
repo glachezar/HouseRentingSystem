@@ -7,5 +7,7 @@ namespace HouseRentingSystem.Data.Services.Interfaces
     public interface ICategoryService
     {
         Task<IEnumerable<HouseSelectCategoryFormModel>> AllCategoriesAsync();
+
+        Task<bool> CategoryExistByIdAsync(int id);
     }
 }
