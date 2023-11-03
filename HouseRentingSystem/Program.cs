@@ -1,3 +1,5 @@
+using HouseRentingSystem.Web.Infrastructure.ModelBinders;
+
 namespace HouseRentingSystem
 {
     using Microsoft.EntityFrameworkCore;
@@ -48,7 +50,13 @@ namespace HouseRentingSystem
 
             builder.Services.AddApplicationServices(typeof(IHouseService));
 
-            builder.Services.AddControllersWithViews();
+            builder.Services
+                .AddControllersWithViews()
+                .AddMvcOptions(options =>
+                {
+                    options.ModelBinderProviders
+                        .Insert(0, new DecimalModelBinderProvider());
+                });
 
 
 
