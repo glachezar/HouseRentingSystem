@@ -1,8 +1,8 @@
-﻿using HouseRentingSystem.Web.ViewModels.House;
-
-namespace HouseRentingSystem.Data.Services.Interfaces
+﻿namespace HouseRentingSystem.Data.Services.Interfaces
 {
-    using HouseRentingSystem.Web.ViewModels.Home;
+    using Web.ViewModels.Home;
+    using Web.ViewModels.House;
+
 
     public interface IHouseService
     {

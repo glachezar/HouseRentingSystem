@@ -1,6 +1,6 @@
 ﻿namespace HouseRentingSystem.Data.Services.Interfaces
 {
-    using HouseRentingSystem.Web.ViewModels.Agent;
+    using Web.ViewModels.Agent;
 
     public interface IAgentService
     {

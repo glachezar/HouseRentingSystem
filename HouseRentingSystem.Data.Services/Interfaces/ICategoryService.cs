@@ -1,8 +1,7 @@
-﻿using HouseRentingSystem.Web.ViewModels.Category;
-
-namespace HouseRentingSystem.Data.Services.Interfaces
+﻿namespace HouseRentingSystem.Data.Services.Interfaces
 {
-    
+
+    using Web.ViewModels.Category;
 
     public interface ICategoryService
     {
