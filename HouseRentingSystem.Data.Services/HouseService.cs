@@ -1,15 +1,17 @@
-﻿using HouseRentingSystem.Data.Models;
-using HouseRentingSystem.Web.ViewModels.House;
-
-namespace HouseRentingSystem.Data.Services
+﻿namespace HouseRentingSystem.Data.Services
 {
     using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using Data;
-    using Services.Interfaces;
+    using Data.Models;
+    using Models.House;
+    using Interfaces;
     using Web.ViewModels.Home;
+    using Web.ViewModels.House;
+    using Web.ViewModels.House.Enums;
+
 
     public class HouseService : IHouseService
     {
@@ -52,6 +54,69 @@ namespace HouseRentingSystem.Data.Services
 
             await dbContext.Houses.AddAsync(newHouse);
             await dbContext.SaveChangesAsync();
+        }
+
+        public async Task<AllHousesFilteredAndPagedServiceModel> AllAsync(AllHousesQueryModel queryModel)
+        {
+            IQueryable<House> housesQuery = this.dbContext
+                .Houses
+                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(queryModel.Category))
+            {
+                housesQuery = housesQuery
+                    .Where(h => h.Categiry.Name == queryModel.Category);
+            }
+
+            if (!string.IsNullOrWhiteSpace(queryModel.SearchString))
+            {
+                string wildCard = $"%{queryModel.SearchString.ToLower()}%";
+
+                housesQuery = housesQuery
+                    .Where(h => EF.Functions.Like(h.Title, wildCard) ||
+                                EF.Functions.Like(h.Address, wildCard) ||
+                                EF.Functions.Like(h.Description, wildCard));
+            }
+
+            housesQuery = queryModel.HouseSorting switch
+            {
+                HouseSorting.Newest => housesQuery
+                    .OrderBy(h => h.CreatedOn),
+
+                HouseSorting.Oldest => housesQuery
+                    .OrderByDescending(h => h.CreatedOn),
+
+                HouseSorting.PriceAscending => housesQuery
+                    .OrderBy(h => h.PricePerMonth),
+
+                HouseSorting.PriceDescending => housesQuery
+                    .OrderByDescending(h => h.PricePerMonth),
+
+                _ => housesQuery
+                    .OrderBy(h => h.RenterId != null)
+                    .ThenByDescending(h => h.CreatedOn)
+            };
+
+            IEnumerable<HouseAllViewModel> allHouses = await housesQuery
+                .Skip((queryModel.CurrentPage - 1) * queryModel.HousesPerPage)
+                .Take(queryModel.HousesPerPage)
+                .Select(h => new HouseAllViewModel
+                {
+                    Id = h.Id.ToString(),
+                    Title = h.Title,
+                    Address = h.Address,
+                    ImageUrl = h.ImageUrl,
+                    PricePerMonth = h.PricePerMonth,
+                    IsRented = h.RenterId.HasValue
+                })
+                .ToArrayAsync();
+            int totalHouses = housesQuery.Count();
+
+            return new AllHousesFilteredAndPagedServiceModel()
+            {
+                TotalHousesCount = totalHouses,
+                Houses = allHouses
+            };
         }
     }
 }

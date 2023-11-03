@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -8,9 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HouseRentingSystem.Common\HouseRentingSystem.Common.csproj" />
-    <ProjectReference Include="..\HouseRentingSystem.Data.Models\HouseRentingSystem.Data.Models.csproj" />
-    <ProjectReference Include="..\HouseRentingSystem.Data.Services.Models\HouseRentingSystem.Data.Services.Models.csproj" />
-    <ProjectReference Include="..\HouseRentingSystem.Data\HouseRentingSystem.Data.csproj" />
     <ProjectReference Include="..\HouseRentingSystem.Web.ViewModels\HouseRentingSystem.Web.ViewModels.csproj" />
   </ItemGroup>
 
