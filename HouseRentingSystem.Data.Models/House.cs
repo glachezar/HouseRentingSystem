@@ -10,7 +10,7 @@
     {
         public House()
         {
-            this.Id = Guid.NewGuid();
+            Id = Guid.NewGuid();
         }
 
         [Key]
@@ -18,24 +18,25 @@
 
         [Required]
         [MaxLength(TitleMaxLength)]
-        public string Title { get; set; }
+        public string Title { get; set; } = null!;
 
         [Required]
         [MaxLength(AddressMaxLength)]
-        public string Address { get; set; }
+        public string Address { get; set; } = null!;
 
         [Required]
         [MaxLength(DescriptionMaxLength)]
-        public string Description { get; set; }
+        public string Description { get; set; } = null!;
 
         [Required]
         [MaxLength(ImageUrlMaxLength)]
-        public string ImageUrl { get; set; }
+        public string ImageUrl { get; set; } = null!;
 
-        
         public decimal PricePerMonth { get; set; }
 
         public DateTime CreatedOn { get; set; }
+
+        public bool IsActive { get; set; }
 
         public int CategoryId { get; set; }
 
@@ -43,7 +44,7 @@
 
         public Guid AgentId { get; set; }
 
-        public Agent Agent { get; set; } = null!;
+        public virtual Agent Agent { get; set; } = null!;
 
         public Guid? RenterId { get; set; }
 
