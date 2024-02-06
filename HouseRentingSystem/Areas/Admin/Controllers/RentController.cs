@@ -3,8 +3,7 @@
     using Data.Services.Interfaces;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Caching.Memory;
-    using ViewModels.Rent;
-
+    using Web.ViewModels.Rent;
     using static Common.GeneralApplicationConstants;
 
     public class RentController : BaseAdminController

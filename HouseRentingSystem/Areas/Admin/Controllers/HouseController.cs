@@ -4,7 +4,6 @@
     using Infrastructure.Extensions;
     using Microsoft.AspNetCore.Mvc;
 
-    using Services.Data.Interfaces;
     using ViewModels.House;
 
     public class HouseController : BaseAdminController
