@@ -25,13 +25,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HouseRentingSystem.Web.Infr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HouseRentingSystem.Data.Services.Models", "HouseRentingSystem.Data.Services.Models\HouseRentingSystem.Data.Services.Models.csproj", "{D526A4B5-FC42-4810-9DD5-624FCB3B5019}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HouseRentingSystem.Service.Mapping", "HouseRentingSystem.Service.Mapping\HouseRentingSystem.Service.Mapping.csproj", "{C7521B02-E7CD-4394-84DF-DE98E6FB202C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HouseRentingSystem.Service.Mapping", "HouseRentingSystem.Service.Mapping\HouseRentingSystem.Service.Mapping.csproj", "{C7521B02-E7CD-4394-84DF-DE98E6FB202C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HouseRentingSystem.Services.Tests", "HouseRentingSystem.Services.Tests\HouseRentingSystem.Services.Tests.csproj", "{5EC94B7C-4969-42AC-8BA2-0D6E9C940FCD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HouseRentingSystem.Services.Tests", "HouseRentingSystem.Services.Tests\HouseRentingSystem.Services.Tests.csproj", "{5EC94B7C-4969-42AC-8BA2-0D6E9C940FCD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{D8E98832-1397-44E6-A8E1-474B1FB415BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HouseRentingSystem.WebApi", "HouseRentingSystem.WebApi\HouseRentingSystem.WebApi.csproj", "{9A7425DC-B0E5-4561-9A1C-95172CF31009}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HouseRentingSystem.WebApi", "HouseRentingSystem.WebApi\HouseRentingSystem.WebApi.csproj", "{9A7425DC-B0E5-4561-9A1C-95172CF31009}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

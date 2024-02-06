@@ -1,15 +1,17 @@
-using HouseRentingSystem.Web.Infrastructure.ModelBinders;
-
-namespace HouseRentingSystem
+namespace HouseRentingSystem.Web
 {
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Configuration;
-
+    using System.Reflection;
+    using Data;
+    using Data.Models;
     using Data.Services.Interfaces;
-    using Data.Services;
-    using HouseRentingSystem.Data;
-    using HouseRentingSystem.Data.Models;
-    using HouseRentingSystem.Web.Infrastructure.Extentions;
+    using Service.Mapping;
+    using Infrastructure.Extensions;
+    using Infrastructure.ModelBinders;
+    using ViewModels.Home;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    using static Common.GeneralApplicationConstants;
 
     public class Program
     {
@@ -17,52 +19,53 @@ namespace HouseRentingSystem
         {
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-            string connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+            string connectionString =
+                builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
             builder.Services.AddDbContext<HouseRentingDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
-            builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
             builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
             {
-                options.SignIn.RequireConfirmedAccount = 
-                builder.Configuration.GetValue<bool>("Identity:SignIn:RequireConfirmedAccount");
-
-                options.Password.RequireNonAlphanumeric = 
-                builder.Configuration.GetValue<bool>("Identity:Password:RequireNonAlphanumeric");
-
-                options.Password.RequireDigit = 
-                builder.Configuration.GetValue<bool>("Identity:Password:RequireDigit");
-
-                options.Password.RequireLowercase = 
-                builder.Configuration.GetValue<bool>("Identity:Password:RequireLowercase");
-
-                options.Password.RequireUppercase = 
-                builder.Configuration.GetValue<bool>("Identity:Password:RequireUppercase");
-
-                options.Password.RequiredLength = 
-                builder.Configuration.GetValue<int>("Identity:Password:RequiredLength");
-
+                options.SignIn.RequireConfirmedAccount =
+                    builder.Configuration.GetValue<bool>("Identity:SignIn:RequireConfirmedAccount");
+                options.Password.RequireLowercase =
+                    builder.Configuration.GetValue<bool>("Identity:Password:RequireLowercase");
+                options.Password.RequireUppercase =
+                    builder.Configuration.GetValue<bool>("Identity:Password:RequireUppercase");
+                options.Password.RequireNonAlphanumeric =
+                    builder.Configuration.GetValue<bool>("Identity:Password:RequireNonAlphanumeric");
+                options.Password.RequiredLength =
+                    builder.Configuration.GetValue<int>("Identity:Password:RequiredLength");
             })
-               .AddEntityFrameworkStores<HouseRentingDbContext>();
+                .AddRoles<IdentityRole<Guid>>()
+                .AddEntityFrameworkStores<HouseRentingDbContext>();
 
             builder.Services.AddApplicationServices(typeof(IHouseService));
+
+            builder.Services.AddRecaptchaService();
+
+            builder.Services.AddMemoryCache();
+            builder.Services.AddResponseCaching();
+
+            builder.Services.ConfigureApplicationCookie(cfg =>
+            {
+                cfg.LoginPath = "/User/Login";
+                cfg.AccessDeniedPath = "/Home/Error/401";
+            });
 
             builder.Services
                 .AddControllersWithViews()
                 .AddMvcOptions(options =>
                 {
-                    options.ModelBinderProviders
-                        .Insert(0, new DecimalModelBinderProvider());
+                    options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
+                    options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
                 });
-
-
 
             WebApplication app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+
             if (app.Environment.IsDevelopment())
             {
                 app.UseMigrationsEndPoint();
@@ -70,8 +73,9 @@ namespace HouseRentingSystem
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseExceptionHandler("/Home/Error/500");
+                app.UseStatusCodePagesWithRedirects("/Home/Error?statusCode={0}");
+
                 app.UseHsts();
             }
 
@@ -80,14 +84,34 @@ namespace HouseRentingSystem
 
             app.UseRouting();
 
+            app.UseResponseCaching();
+
             app.UseAuthentication();
             app.UseAuthorization();
 
-            //app.MapControllerRoute(
-            //    name: "default",
-            //    pattern: "{controller=Home}/{action=Index}/{id?}");
-            app.MapDefaultControllerRoute();
-            app.MapRazorPages();
+            app.EnableOnlineUsersCheck();
+
+            if (app.Environment.IsDevelopment())
+            {
+                app.SeedAdministrator(DevelopmentAdminEmail);
+            }
+
+            app.UseEndpoints(config =>
+            {
+                config.MapControllerRoute(
+                    name: "areas",
+                    pattern: "/{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+
+                config.MapControllerRoute(
+                    name: "ProtectingUrlRoute",
+                    pattern: "/{controller}/{action}/{id}/{information}",
+                    defaults: new { Controller = "Category", Action = "Details" });
+
+                config.MapDefaultControllerRoute();
+
+                config.MapRazorPages();
+            });
 
             app.Run();
         }
