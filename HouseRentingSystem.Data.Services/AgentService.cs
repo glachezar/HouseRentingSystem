@@ -1,76 +1,89 @@
-﻿namespace HouseRentingSystem.Data.Services
+﻿namespace HouseRentingSystem.Data.Services;
+
+using Microsoft.EntityFrameworkCore;
+
+using HouseRentingSystem.Data;
+using HouseRentingSystem.Data.Models;
+using Interfaces;
+using Web.ViewModels.Agent;
+
+public class AgentService : IAgentService
 {
-    using HouseRentingSystem.Data.Models;
-    using HouseRentingSystem.Data.Services.Interfaces;
-    using HouseRentingSystem.Web.ViewModels.Agent;
-    using Microsoft.EntityFrameworkCore;
-    using System.Threading.Tasks;
+    private readonly HouseRentingDbContext dbContext;
 
-    public class AgentService : IAgentService
+    public AgentService(HouseRentingDbContext dbContext)
     {
-        private readonly HouseRentingDbContext dbContext;
+        this.dbContext = dbContext;
+    }
 
-        public AgentService(HouseRentingDbContext dbContext)
+    public async Task<bool> AgentExistsByUserIdAsync(string userId)
+    {
+        bool result = await dbContext
+            .Agents
+            .AnyAsync(a => a.UserId.ToString() == userId);
+
+        return result;
+    }
+
+    public async Task<bool> AgentExistsByPhoneNumberAsync(string phoneNumber)
+    {
+        bool result = await dbContext
+            .Agents
+            .AnyAsync(a => a.PhoneNumber == phoneNumber);
+
+        return result;
+    }
+
+    public async Task<bool> HasRentsByUserIdAsync(string userId)
+    {
+        ApplicationUser? user = await dbContext
+            .Users
+            .FirstOrDefaultAsync(u => u.Id.ToString() == userId);
+        if (user == null)
         {
-            this.dbContext = dbContext;
+            return false;
         }
 
-        public async Task<bool> AgentExistByPhoneNumberAsync(string phoneNumber)
-        {
-            bool agentExist = await this.dbContext
-                 .Agents
-                 .AnyAsync(a => a.PhoneNumber == phoneNumber);
+        return user.RentedHouses.Any();
+    }
 
-            return agentExist;
+    public async Task Create(string userId, BecomeAgentFormModel model)
+    {
+        Agent newAgent = new Agent()
+        {
+            PhoneNumber = model.PhoneNumber,
+            UserId = Guid.Parse(userId)
+        };
+
+        await dbContext.Agents.AddAsync(newAgent);
+        await dbContext.SaveChangesAsync();
+    }
+
+    public async Task<string?> GetAgentIdByUserIdAsync(string userId)
+    {
+        Agent? agent = await dbContext
+            .Agents
+            .FirstOrDefaultAsync(a => a.UserId.ToString() == userId);
+        if (agent == null)
+        {
+            return null;
         }
 
-        public async Task<bool> AgentExistByUserIdAsync(string userId)
-        {
-            bool agentExist = await this.dbContext
-                .Agents
-                .AnyAsync(a => a.UserId.ToString() == userId);
+        return agent.Id.ToString();
+    }
 
-            return agentExist;
+    public async Task<bool> HasHouseWithIdAsync(string? userId, string houseId)
+    {
+        Agent? agent = await dbContext
+            .Agents
+            .Include(a => a.OwnedHouses)
+            .FirstOrDefaultAsync(a => a.UserId.ToString() == userId);
+        if (agent == null)
+        {
+            return false;
         }
 
-        public async Task<bool> HasRentsByUserIdAsync(string userId)
-        {
-            ApplicationUser? user = await this.dbContext
-                .Users
-                .FirstOrDefaultAsync(u => u.Id.ToString() == userId);
-
-            if (user == null)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        public async Task CreateAsync(string userId, BecomeAgentFormModel model)
-        {
-            Agent newAgent = new Agent()
-            {
-                PhoneNumber = model.PhoneNumber,
-                UserId = Guid.Parse(userId)
-            };
-
-            await this.dbContext.Agents.AddAsync(newAgent);
-            await this.dbContext.SaveChangesAsync();
-        }
-
-        public async Task<string?> GetAgentIdByUserIdAsync(string userId)
-        {
-            Agent? agent = await this.dbContext
-                .Agents
-                .FirstOrDefaultAsync(a => a.UserId.ToString() == userId);
-
-            if (agent == null)
-            {
-                return null;
-            }
-
-            return agent.Id.ToString();
-        }
+        houseId = houseId.ToLower();
+        return agent.OwnedHouses.Any(h => h.Id.ToString() == houseId);
     }
 }
