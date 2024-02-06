@@ -1,11 +1,10 @@
-﻿@model HouseFormModel
+﻿﻿@model HouseFormModel
 @{
-    ViewBag.Title = "Add House";
+    ViewData["Title"] = "Add House";
 }
 
-<h2 class="text-center">@ViewBag.Title</h2>
-
-<hr/>
+<h2 class="text-center">@ViewData["Title"]</h2>
+<hr />
 
 <partial name="_HouseFormPartial" model="@Model"/>
 
