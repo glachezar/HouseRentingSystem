@@ -3,7 +3,7 @@
 using AutoMapper;
 
 using Data.Models;
-using Services.Mapping;
+using Service.Mapping;
 
 public class RentViewModel : IMapFrom<House>, IHaveCustomMappings
 {

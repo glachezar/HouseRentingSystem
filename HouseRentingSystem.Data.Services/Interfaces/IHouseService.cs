@@ -2,6 +2,7 @@
 {
     using System.Threading.Tasks;
     using Models.House;
+    using Models.Statistics;
     using Web.ViewModels.Home;
     using Web.ViewModels.House;
 

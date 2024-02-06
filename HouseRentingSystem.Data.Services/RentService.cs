@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 using Data;
 using Interfaces;
-using Mapping;
+using Service.Mapping;
 using Web.ViewModels.Rent;
 
 public class RentService : IRentService

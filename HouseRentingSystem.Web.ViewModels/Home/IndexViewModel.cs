@@ -2,7 +2,7 @@
 
 using Common;
 using Data.Models;
-using Services.Mapping;
+using HouseRentingSystem.Service.Mapping;
 
 public class IndexViewModel : IMapFrom<House>
 {
