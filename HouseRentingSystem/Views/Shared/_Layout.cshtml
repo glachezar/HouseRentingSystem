@@ -1,7 +1,6 @@
-﻿﻿@using static HouseRentingSystem.Common.GeneralApplicationConstants;
+﻿@using HouseRentingSystem.Data.Services.Interfaces
 @using HouseRentingSystem.Web.Infrastructure.Extensions
-@using HouseRentingSystem.Data.Services.Interfaces
-
+@using static HouseRentingSystem.Common.GeneralApplicationConstants
 @inject IAgentService AgentService
 @{
     bool isUserAgent = await AgentService.AgentExistsByUserIdAsync(User.GetId());

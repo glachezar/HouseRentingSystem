@@ -1,4 +1,4 @@
-﻿﻿@model AllHousesQueryModel
+﻿@model AllHousesQueryModel
 
 @{
     ViewBag.Title = "All Houses";
@@ -65,7 +65,7 @@
         previousPage = 1;
     }
 
-    int maxPage = (int)Math.Ceiling((double)Model.TotalHouses /
+    int maxPage = (int)Math.Ceiling((double)Model.TotalHousesCount /
         Model.HousesPerPage);
 }
 

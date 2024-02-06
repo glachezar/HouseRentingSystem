@@ -3,8 +3,7 @@
     using Data.Services.Interfaces;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Caching.Memory;
-    using ViewModels.User;
-
+    using Web.ViewModels.User;
     using static Common.GeneralApplicationConstants;
 
     public class UserController : BaseAdminController

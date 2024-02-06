@@ -1,5 +1,6 @@
 ﻿namespace HouseRentingSystem.Web.Controllers
 {
+    using Griesoft.AspNetCore.ReCaptcha;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
@@ -105,9 +106,5 @@
 
             return Redirect(model.ReturnUrl ?? "/Home/Index");
         }
-    }
-
-    public class ValidateRecaptchaAttribute : Attribute
-    {
     }
 }

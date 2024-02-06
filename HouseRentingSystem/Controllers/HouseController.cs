@@ -41,7 +41,7 @@
                 await houseService.AllAsync(queryModel);
 
             queryModel.Houses = serviceModel.Houses;
-            queryModel.TotalHouses = serviceModel.TotalHousesCount;
+            queryModel.TotalHousesCount = serviceModel.TotalHousesCount;
             queryModel.Categories = await categoryService.AllCategoryNamesAsync();
 
             return View(queryModel);
