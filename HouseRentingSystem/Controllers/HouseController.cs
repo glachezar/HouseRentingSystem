@@ -8,6 +8,7 @@
     using Infrastructure.Extentions;
     using ViewModels.House;
     using static Common.NotificationMessagesConstants;
+    using HouseRentingSystem.Web.Infrastructure.Extensions;
 
     [Authorize]
     public class HouseController : Controller

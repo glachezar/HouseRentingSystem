@@ -8,6 +8,7 @@
     using ViewModels.Agent;
 
     using static Common.NotificationMessagesConstants;
+    using HouseRentingSystem.Web.Infrastructure.Extensions;
 
     [Authorize]
     public class AgentController : Controller
