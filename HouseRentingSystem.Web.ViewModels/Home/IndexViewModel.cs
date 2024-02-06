@@ -1,13 +1,14 @@
-﻿namespace HouseRentingSystem.Web.ViewModels.Home
+﻿namespace HouseRentingSystem.Web.ViewModels.Home;
+
+using Common;
+using Data.Models;
+using Services.Mapping;
+
+public class IndexViewModel : IMapFrom<House>
 {
-    
+    public string Id { get; set; } = null!;
 
-    public class IndexViewModel
-    {
-        public string Id { get; set; }
+    public string Title { get; set; } = null!;
 
-        public string Title { get; set; }
-
-        public string ImageUrl { get; set; }
-    }
+    public string ImageUrl { get; set; } = null!;
 }

@@ -1,5 +1,7 @@
 ﻿namespace HouseRentingSystem.Web.ViewModels.House;
 
+using Agent;
+
 public class HouseDetailsViewModel : HouseAllViewModel
 {
     public string Description { get; set; } = null!;

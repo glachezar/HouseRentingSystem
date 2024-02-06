@@ -1,9 +1,8 @@
-namespace HouseRentingSystem.Web.ViewModels.Home
-{
-    public class ErrorViewModel
-    {
-        public string? RequestId { get; set; }
+namespace HouseRentingSystem.Web.ViewModels.Home;
 
-        public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
-    }
+public class ErrorViewModel
+{
+    public string? RequestId { get; set; }
+
+    public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 }
