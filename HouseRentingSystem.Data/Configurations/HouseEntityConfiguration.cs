@@ -15,7 +15,7 @@
 
 
             builder
-                .HasOne(h => h.Categiry)
+                .HasOne(h => h.Category)
                 .WithMany(h => h.Houses)
                 .HasForeignKey(h => h.CategoryId)
                 .OnDelete(DeleteBehavior.Restrict);

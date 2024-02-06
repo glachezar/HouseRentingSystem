@@ -39,7 +39,7 @@
 
         public int CategoryId { get; set; }
 
-        public virtual Category Categiry { get; set; } = null!;
+        public virtual Category Category { get; set; } = null!;
 
         public Guid AgentId { get; set; }
 

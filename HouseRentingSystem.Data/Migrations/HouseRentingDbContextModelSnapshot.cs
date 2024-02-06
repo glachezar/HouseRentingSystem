@@ -391,7 +391,7 @@ namespace HouseRentingSystem.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("HouseRentingSystem.Data.Models.Category", "Categiry")
+                    b.HasOne("HouseRentingSystem.Data.Models.Category", "Category")
                         .WithMany("Houses")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -403,7 +403,7 @@ namespace HouseRentingSystem.Data.Migrations
 
                     b.Navigation("Agent");
 
-                    b.Navigation("Categiry");
+                    b.Navigation("Category");
 
                     b.Navigation("Renter");
                 });
