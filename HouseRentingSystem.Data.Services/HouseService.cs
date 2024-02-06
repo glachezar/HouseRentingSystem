@@ -11,7 +11,7 @@ using Interfaces;
 using Web.ViewModels.Home;
 using Web.ViewModels.House;
 using Web.ViewModels.House.Enums;
-using HouseRentingSystem.Data.Services.Models.Statistics;
+using Models.Statistics;
 
 public class HouseService : IHouseService
 {
