@@ -1,14 +1,16 @@
-﻿namespace HouseRentingSystem.Data.Services.Interfaces
+﻿namespace HouseRentingSystem.Data.Services.Interfaces;
+
+using Web.ViewModels.Category;
+
+public interface ICategoryService
 {
+    Task<IEnumerable<HouseSelectCategoryFormModel>> AllCategoriesAsync();
 
-    using Web.ViewModels.Category;
+    Task<IEnumerable<AllCategoriesViewModel>> AllCategoriesForListAsync();
 
-    public interface ICategoryService
-    {
-        Task<IEnumerable<HouseSelectCategoryFormModel>> AllCategoriesAsync();
+    Task<bool> ExistsByIdAsync(int id);
 
-        Task<bool> CategoryExistByIdAsync(int id);
+    Task<IEnumerable<string>> AllCategoryNamesAsync();
 
-        Task<IEnumerable<string>> AllCategoryNamesAsync();
-    }
+    Task<CategoryDetailsViewModel> GetDetailsByIdAsync(int id);
 }
