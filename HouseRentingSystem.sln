@@ -23,7 +23,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HouseRentingSystem.Web.View
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HouseRentingSystem.Web.Infrastructure", "HouseRentingSystem.Web.Infrastructure\HouseRentingSystem.Web.Infrastructure.csproj", "{7CA002F9-FD66-4C8E-9776-49A47806F541}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HouseRentingSystem.Data.Services.Models", "HouseRentingSystem.Data.Services.Models\HouseRentingSystem.Data.Services.Models.csproj", "{D526A4B5-FC42-4810-9DD5-624FCB3B5019}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HouseRentingSystem.Data.Services.Models", "HouseRentingSystem.Data.Services.Models\HouseRentingSystem.Data.Services.Models.csproj", "{D526A4B5-FC42-4810-9DD5-624FCB3B5019}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HouseRentingSystem.Service.Mapping", "HouseRentingSystem.Service.Mapping\HouseRentingSystem.Service.Mapping.csproj", "{C7521B02-E7CD-4394-84DF-DE98E6FB202C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{D526A4B5-FC42-4810-9DD5-624FCB3B5019}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D526A4B5-FC42-4810-9DD5-624FCB3B5019}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D526A4B5-FC42-4810-9DD5-624FCB3B5019}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7521B02-E7CD-4394-84DF-DE98E6FB202C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7521B02-E7CD-4394-84DF-DE98E6FB202C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7521B02-E7CD-4394-84DF-DE98E6FB202C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7521B02-E7CD-4394-84DF-DE98E6FB202C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -75,6 +81,7 @@ Global
 		{FA02E4F0-0F41-4E2D-B006-B61B1B40676A} = {4607B917-69C8-46E9-AA76-6686C212B472}
 		{7CA002F9-FD66-4C8E-9776-49A47806F541} = {4607B917-69C8-46E9-AA76-6686C212B472}
 		{D526A4B5-FC42-4810-9DD5-624FCB3B5019} = {B89629EF-2F56-4F6E-BA31-0309895E5D18}
+		{C7521B02-E7CD-4394-84DF-DE98E6FB202C} = {B89629EF-2F56-4F6E-BA31-0309895E5D18}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D99DD679-E777-458D-8687-78DDBCEA06B5}
